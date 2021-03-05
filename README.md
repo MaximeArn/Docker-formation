@@ -1,5 +1,7 @@
 # Docker Formation
 
+![](ressources/docker-logo.png)
+
 ## What is Docker ?
 
 Docker is an open source tool developed in Go and created in 2012 by 3 french engineers
