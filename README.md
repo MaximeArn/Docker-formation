@@ -198,3 +198,99 @@ c091bf98a2af   hello-world   "/hello"   2 hours ago     Exited (0) 2 hours ago  
 ```
 
 we can see that each run of the hello-world image create a new container.
+
+## Run a container
+
+#### The `run` command
+
+the docker `run` command is an allias for multiple commands :
+
+```bash
+docker pull image
+docker container create -d image
+docker container start ID
+docker container -a ID
+```
+
+#### The `-i` option
+
+The `-i` option (alias for `--interactive`) is an option which allows to keep the standard input open even if the process is started by default in the background or if it does not start a service and therefore quits immediately.
+
+To try it we will use the alpine image. Alpine is a distribution of Linux that has the particularity to be very light (5.57Mb vs 80Mb for Ubuntu)
+
+if we run alpine image to create a new container we can see that except the pull phase nothing is happening. Indeed this image does not launch any program by default and since there is nothing to execute the contaner (that is a process) stops.
+
+if we run now the same command with the `-i` option, the container does not stop and we can writ einside.
+
+if we write `ls` to list repositories the return is :
+
+```zsh
+ls
+bin
+dev
+etc
+home
+lib
+media
+mnt
+opt
+proc
+root
+run
+sbin
+srv
+sys
+tmp
+usr
+var
+```
+
+#### the `-t` option
+
+the `-t` option (alias for `--tty`) launch a terminal and allocate it to the container
+
+running the `-t` option in addition to the` -i` option open an sh terminal connected to the container and so to the Alpine OS.
+
+if we run `docker run -it alpine` and we print ls we now have the formatted repositories list.
+
+```sh
+bin    dev    etc    home   lib    media  mnt    opt    proc   root   run    sbin   srv    sys    tmp    usr    var
+```
+
+#### background and foreground mode
+
+###### Foreground mode
+
+By default the `run` command execute the container in foreground.
+If we run `docker run alpine ping google.fr`
+
+_Here it will create and start an alpine container and ask it to start the `ping google.fr` command.
+This command sends packets at regular time intervals to google.fr to obtain network statistics._
+
+We can see that the standard output, the error output and the standard input of the container are connected to the terminal. We can see the following return :
+
+```sh
+PING google.fr (172.217.18.195): 56 data bytes
+64 bytes from 172.217.18.195: seq=0 ttl=37 time=45.958 ms
+64 bytes from 172.217.18.195: seq=1 ttl=37 time=46.778 ms
+64 bytes from 172.217.18.195: seq=2 ttl=37 time=93.455 ms
+64 bytes from 172.217.18.195: seq=3 ttl=37 time=45.174 ms
+64 bytes from 172.217.18.195: seq=4 ttl=37 time=45.841 ms
+64 bytes from 172.217.18.195: seq=5 ttl=37 time=51.209 ms
+64 bytes from 172.217.18.195: seq=6 ttl=37 time=56.460 ms
+64 bytes from 172.217.18.195: seq=7 ttl=37 time=46.567 ms
+64 bytes from 172.217.18.195: seq=8 ttl=37 time=45.386 ms
+```
+
+thanks to the connexion of the standard input of the container to host's terminal we can stop the process using `ctrl + C`
+
+###### Background mode
+
+To run a container in background mode we must add the `-d` otion (alias for `--detach`)
+
+`docker run -d alpine ping google.fr`
+
+The container is not lunched in interactive mode so the input and output are not connected to the host's terminal. We can not interact with the container and it can not interact with us.
+
+we can display the logs of this container using the `docker logs` command followed by the container id :
+`docker logs 8f7ecaf543f89ddef1a268b10482aaf752e358e970495c48bd3132f2b42297cb`
