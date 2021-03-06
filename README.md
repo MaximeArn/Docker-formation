@@ -651,3 +651,37 @@ To get a shell in any running container we can use the following commands :
 
 - `docker exec -it NAME_OR_ID bash`
 - `docker exec -it NAME_OR_ID sh` use sh if bash is not installed like in alpine distrib of linux
+
+## copy files and inspect container
+
+#### copy files
+
+to copy a file we will use the `docker container cp source-path CONTAINER:destination-path` command
+this command will works can import whether the container is running or not.
+
+#### Inspect changes in file system
+
+we can inspect the files that have been modified using the `docker container diff CONTAINER` command.
+
+```bash
+~ % docker run --name test -it alpine
+/ # ls
+bin    dev    etc    home   lib    media  mnt    opt    proc   root   run    sbin   srv    sys    tmp    usr    var
+/ # touch /home/logs.txt
+/ # cd /home
+/home # ls
+logs.txt
+/home # exit
+
+~ % docker container diff test
+C /root
+A /root/.ash_history
+C /home
+A /home/logs.txt
+```
+
+- La lettre A signifie qu'un fichier ou un dossier a été ajouté.
+
+- La lettre D signifie qu'un fichier ou un dossier a été supprimé.
+
+- La lettre C signifie qu'un fichier ou un dossier a été modifié.
