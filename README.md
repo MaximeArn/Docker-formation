@@ -586,3 +586,66 @@ Here it is because the ping command does not have a code to respond to a **SIGTE
 We can also directly kill a process with `docker container kill` or `docker kill`.
 
 this command will directly stop the container.
+
+###### Kill all containers running
+
+To kill all containers currently running we can type `docker stop &(docker container ls -aq)`.
+this command will take the result of `docker container ls -aq` (a list of container ID) and will stop each container.
+
+## Docker pause, unpause, exec and rename
+
+#### pause and unpause
+
+##### Pause
+
+The `docker container pause NAME_OR_ID` command allows to suspend all the processes of one or more specified containers.
+
+It actually uses the functionality of the Linux kernel of cgroup freezers which allows to suspend processes without sending signals (SIGSTOP).
+This effectively allows the processes to be unable to react because no signal is being sent and to "freeze" them.
+
+the `STATUS` of the container will stay "UP"
+
+##### unpause
+
+To stop the pause we need to use the `docker container unpause NAME_OR_ID` command.
+
+#### Rename
+
+It is possible to give a specific name at the creation of a container with the `--name` option but it is also possible to change the name after the creation.
+
+To do this we will use the following command
+
+```bash
+docker container rename NAME_OR_ID newName
+```
+
+#### Exec
+
+for executing commands in running containers we must use the `docker container exec COMMAND` command
+`exec` can also take options like `-i` or `-t`.
+
+###### Exemple :
+
+:arrow_down: start a new container redis called redis in background :arrow_down:
+
+```bash
+docker run -d --name redis redis
+```
+
+:arrow_down: execute a commande that run the redis CLI :arrow_down:
+
+```bash
+~ % docker exec -it redis redis-cli
+127.0.0.1:6379> set name maxime
+OK
+127.0.0.1:6379> get name
+"maxime"
+127.0.0.1:6379>
+```
+
+###### Get a shell in any running container
+
+To get a shell in any running container we can use the following commands :
+
+- `docker exec -it NAME_OR_ID bash`
+- `docker exec -it NAME_OR_ID sh` use sh if bash is not installed like in alpine distrib of linux
