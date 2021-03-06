@@ -500,3 +500,38 @@ We can also use the `docker system prune` command to delete :
 - All caches used for the creation of Docker images
 
 we can add the `-a` option to delete moreover all taged images that are not used by a running container.
+
+## Container LifeCycle
+
+We saw that the `docker run`command creates and start a container but we can do these actions separately.
+
+#### Create Container
+
+`docker container create IMAGE_NAME` create a new container but it does not start it. It is usefull if we want configure the container.
+
+```bash
+~ % docker container create alpine
+3bfd8cebb045b3517039eb2c208525d5ce809462724369a5f4b8454a391534f1
+```
+
+we can see the container with the `docker ps -a` command (alias for `docker container ls -a`). Its status is `CREATED`
+
+```bash
+~ % docker ps -a
+CONTAINER ID   IMAGE     COMMAND     CREATED         STATUS    PORTS     NAMES
+3bfd8cebb045   alpine    "/bin/sh"   6 seconds ago   Created             friendly_boyd
+```
+
+We can pass config options at the creation of the container. Here we create a new container from the "alpine" image in interactive mode with a terminal and we call it alpine1 and we
+
+```bash
+docker container create --name alpine1 -it  alpine
+```
+
+#### Start Container
+
+Docker provides the `docker container start CONTAINER_NAME_OR_ID` to start a container already created.
+
+The `start` command cannot change options passed at the creation of the container
+
+If we create a container without `-it` option and we try to start it with -ai option it wont works.
