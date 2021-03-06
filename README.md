@@ -535,3 +535,54 @@ Docker provides the `docker container start CONTAINER_NAME_OR_ID` to start a con
 The `start` command cannot change options passed at the creation of the container
 
 If we create a container without `-it` option and we try to start it with -ai option it wont works.
+
+The `-a` option (for `--attach`) attaches standard output (STDOUT) and error output (STDERR) to your terminal. In other words, this will display the output streams of your container in your terminal as if you were in the container.
+
+The `-i` option for `--interactive` attaches the standard input (STDIN) of your terminal to the container. In other words, it allows you to type commands in your terminal as if you were in the container.
+
+#### Stop a container
+
+To stop a container we must use `docker scontainer stop` or `docker stop`
+
+```bash
+~ % docker create --name googlePing alpine ping google.com
+4d9a72a2a5020ab41bcc9a7f6cfca62b76467af5e38a7df7d103d7b14a23c93b
+
+~ % docker ps -a
+CONTAINER ID   IMAGE     COMMAND             CREATED         STATUS    PORTS     NAMES
+4d9a72a2a502   alpine    "ping google.com"   8 seconds ago   Created             googlePing
+```
+
+here I create a new container with the name "googlePing" that will execute the command `ping google.com`
+
+then I can start it using either its name or its Id
+
+```bash
+~ % docker container start googlePing
+googlePing
+```
+
+we can verify if the container is running
+
+```bash
+ ~ % docker ps
+CONTAINER ID   IMAGE     COMMAND             CREATED          STATUS          PORTS     NAMES
+4d9a72a2a502   alpine    "ping google.com"   10 minutes ago   Up 10 seconds             googlePing
+```
+
+finally we can stop the container.
+
+```bash
+~ % docker container stop googlePing
+googlePing
+```
+
+:warning: In fact, `docker container stop` sends a **SIGTERM** to give the container time to perform any cleaning / backup tasks before shutting down.
+If after a few seconds the container is still running, the daemon then sends a **SIGKILL** to the container to force its interruption
+Here it is because the ping command does not have a code to respond to a **SIGTERM**.
+
+#### Kill a container
+
+We can also directly kill a process with `docker container kill` or `docker kill`.
+
+this command will directly stop the container.
