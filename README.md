@@ -491,3 +491,12 @@ If we want to delete the container that is running we must add the `-f` option t
 ```
 
 We can have some help about a command by adding the `--help` option.
+
+We can also use the `docker system prune` command to delete :
+
+- All Containers that are not currently running
+- All Networks that are not used by a running container
+- All dangling images (image that are not described by a tag) that are not used for running a container
+- All caches used for the creation of Docker images
+
+we can add the `-a` option to delete moreover all taged images that are not used by a running container.
