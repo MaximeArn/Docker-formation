@@ -624,6 +624,8 @@ docker container rename NAME_OR_ID newName
 for executing commands in running containers we must use the `docker container exec COMMAND` command
 `exec` can also take options like `-i` or `-t`.
 
+:warning: `docker exec` works only on running containers
+
 ###### Exemple :
 
 :arrow_down: start a new container redis called redis in background :arrow_down:
