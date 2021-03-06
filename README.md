@@ -294,3 +294,200 @@ The container is not lunched in interactive mode so the input and output are not
 
 we can display the logs of this container using the `docker logs` command followed by the container id :
 `docker logs 8f7ecaf543f89ddef1a268b10482aaf752e358e970495c48bd3132f2b42297cb`
+
+```sh
+PING google.fr (172.217.18.195): 56 data bytes
+64 bytes from 172.217.18.195: seq=0 ttl=37 time=46.762 ms
+64 bytes from 172.217.18.195: seq=1 ttl=37 time=47.150 ms
+64 bytes from 172.217.18.195: seq=2 ttl=37 time=51.822 ms
+64 bytes from 172.217.18.195: seq=3 ttl=37 time=52.184 ms
+64 bytes from 172.217.18.195: seq=4 ttl=37 time=45.302 ms
+64 bytes from 172.217.18.195: seq=5 ttl=37 time=45.143 ms
+64 bytes from 172.217.18.195: seq=6 ttl=37 time=63.402 ms
+64 bytes from 172.217.18.195: seq=7 ttl=37 time=51.428 ms
+```
+
+## Basic Commands & help
+
+To display the list of the commands we can type `docker`
+
+```bash
+Management Commands:
+  app*        Docker App (Docker Inc., v0.9.1-beta3)
+  builder     Manage builds
+  buildx*     Build with BuildKit (Docker Inc., v0.5.1-docker)
+  config      Manage Docker configs
+  container   Manage containers
+  context     Manage contexts
+  image       Manage images
+  manifest    Manage Docker image manifests and manifest lists
+  network     Manage networks
+  node        Manage Swarm nodes
+  plugin      Manage plugins
+  scan*       Docker Scan (Docker Inc., v0.5.0)
+  secret      Manage Docker secrets
+  service     Manage services
+  stack       Manage Docker stacks
+  swarm       Manage Swarm
+  system      Manage Docker
+  trust       Manage trust on Docker images
+  volume      Manage volumes
+
+Commands:
+  attach      Attach local standard input, output, and error streams to a running container
+  build       Build an image from a Dockerfile
+  commit      Create a new image from a container's changes
+  cp          Copy files/folders between a container and the local filesystem
+  create      Create a new container
+  diff        Inspect changes to files or directories on a container's filesystem
+  events      Get real time events from the server
+  exec        Run a command in a running container
+  export      Export a container's filesystem as a tar archive
+  history     Show the history of an image
+  images      List images
+  import      Import the contents from a tarball to create a filesystem image
+  info        Display system-wide information
+  inspect     Return low-level information on Docker objects
+  kill        Kill one or more running containers
+  load        Load an image from a tar archive or STDIN
+  login       Log in to a Docker registry
+  logout      Log out from a Docker registry
+  logs        Fetch the logs of a container
+  pause       Pause all processes within one or more containers
+  port        List port mappings or a specific mapping for the container
+  ps          List containers
+  pull        Pull an image or a repository from a registry
+  push        Push an image or a repository to a registry
+  rename      Rename a container
+  restart     Restart one or more containers
+  rm          Remove one or more containers
+  rmi         Remove one or more images
+  run         Run a command in a new container
+  save        Save one or more images to a tar archive (streamed to STDOUT by default)
+  search      Search the Docker Hub for images
+  start       Start one or more stopped containers
+  stats       Display a live stream of container(s) resource usage statistics
+  stop        Stop one or more running containers
+  tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+  top         Display the running processes of a container
+  unpause     Unpause all processes within one or more containers
+  update      Update configuration of one or more containers
+  version     Show the Docker version information
+  wait        Block until one or more containers stop, then print their exit codes
+```
+
+This list is composed of two parts:
+--> Management Commands (list different Docker objects)
+--> Commands (list every commands)
+
+We can list the command that concern a specific Docker object adding the name of this object after the `docker command`. Enter `docker image` will show all the commands about images.
+
+##### List entities
+
+like on a linux system we can use the `ls` and `ls -a` commands to list entities.
+
+`docker image ls` will list all images present locally
+
+```bash
+REPOSITORY    TAG       IMAGE ID       CREATED         SIZE
+alpine        latest    28f6e2705743   2 weeks ago     5.61MB
+hello-world   latest    bf756fb1ae65   14 months ago   13.3kB
+```
+
+`docker container ls` will list all container running
+
+```bash
+CONTAINER ID   IMAGE     COMMAND            CREATED        STATUS        PORTS     NAMES
+8f7ecaf543f8   alpine    "ping google.fr"   12 hours ago   Up 12 hours             jovial_jennings
+```
+
+`docker container ls -a` will list all containers running or not
+
+```bash
+CONTAINER ID   IMAGE         COMMAND            CREATED        STATUS                      PORTS     NAMES
+8f7ecaf543f8   alpine        "ping google.fr"   12 hours ago   Up 12 hours                           jovial_jennings
+6e8e616f05c1   alpine        "ping google.fr"   12 hours ago   Exited (0) 12 hours ago               inspiring_jepsen
+bfc02a59d1dd   alpine        "/bin/sh"          12 hours ago   Exited (0) 12 hours ago               nervous_clarke
+cf50a31ec24e   alpine        "/bin/sh"          12 hours ago   Exited (0) 12 hours ago               loving_shtern
+2999df98bd9c   alpine        "/bin/sh"          13 hours ago   Exited (0) 13 hours ago               fervent_murdock
+221a5f2b17e3   alpine        "/bin/sh"          13 hours ago   Exited (0) 13 hours ago               amazing_liskov
+7f85275382e6   alpine        "/bin/sh"          13 hours ago   Exited (127) 13 hours ago             serene_rosalind
+459fb0ed52c3   alpine        "/bin/sh"          13 hours ago   Exited (0) 13 hours ago               practical_banach
+ed74998d24d8   hello-world   "/hello"           14 hours ago   Exited (0) 14 hours ago               admiring_lewin
+c091bf98a2af   hello-world   "/hello"           16 hours ago   Exited (0) 16 hours ago               strange_chatelet
+78983cf4b0a2   hello-world   "/hello"           16 hours ago   Exited (0) 16 hours ago               lucid_gates
+```
+
+##### Delete entity
+
+###### Images
+
+To remove an entity we can use the `rm` command. We must provide either the `IMAGE ID` or the name of the image to specify which one we want to delete.
+
+```bash
+docker image rm 28f6e2705743
+Error response from daemon: conflict: unable to delete 28f6e2705743 (cannot be forced) - image is being used by running container 8f7ecaf543f8
+```
+
+Note that we cannot delete an image that is used by a container. (We can force the deletion by using the `-f` option on `rm` but it can be risky for the container)
+
+###### Containers
+
+We can delete a container using the same command.
+
+```bash
+docker container rm 78983cf4b0a2
+```
+
+or we can delete all the containers that are not currently running.
+
+```bash
+~ % docker container prune
+WARNING! This will remove all stopped containers.
+Are you sure you want to continue? [y/N] y
+Deleted Containers:
+6e8e616f05c1677eb895ced24e38088662b0278f3c497ec90555fb9c7b7a69e2
+bfc02a59d1ddac617559c6ad9c74bd6a7d2c12880e5d695f012586e677350ff3
+cf50a31ec24e2f7586ea99f1e535922ffc24681ebf8c8f603fa39d90ec0ffa5c
+2999df98bd9c0c53dded3ee37f5218de0d66e92f0abf52d24b78280d9026ea22
+221a5f2b17e32773300f5bff34fc21e1b1925c1a940b040f89cdd6cf294ea252
+7f85275382e6d5cad5f1ad3420b21c8d9ed71fecb9267ceaec55905b4bc1c8d3
+459fb0ed52c31b79d503cd046c1bb61ffc0222ec305f38f582b4aaaf323375fb
+ed74998d24d888aa3661ed8a10f0014bf0633504350f14efe40e933f9833b642
+c091bf98a2af4d8cab6bff11b5f2bc4602fb00e10403ef602f7ab61461b9e9ff
+
+Total reclaimed space: 21B
+```
+
+We can verify the deletion with :
+
+```bash
+~ % docker container ls -a
+CONTAINER ID   IMAGE     COMMAND            CREATED        STATUS        PORTS     NAMES
+8f7ecaf543f8   alpine    "ping google.fr"   12 hours ago   Up 12 hours             jovial_jennings
+```
+
+Now that we have delete all the containers who used the `hello-world` image we can delete the image.
+
+```bash
+~ % docker image rm hello-world
+Untagged: hello-world:latest
+Untagged: hello-world@sha256:7e02330c713f93b1d3e4c5003350d0dbe215ca269dd1d84a4abc577908344b30
+Deleted: sha256:bf756fb1ae65adf866bd8c456593cd24beb6a0a061dedf42b26a993176745f6b
+Deleted: sha256:9c27e219663c25e0f28493790cc0b88bc973ba3b1686355f221c38a36978ac63
+```
+
+```bash
+~ % docker image ls
+REPOSITORY   TAG       IMAGE ID       CREATED       SIZE
+alpine       latest    28f6e2705743   2 weeks ago   5.61MB
+```
+
+If we want to delete the container that is running we must add the `-f` option to force the deletion.
+
+```bash
+~ % docker container rm -f 8f7ecaf543f8
+8f7ecaf543f8
+```
+
+We can have some help about a command by adding the `--help` option.
