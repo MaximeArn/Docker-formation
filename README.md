@@ -898,3 +898,17 @@ e06db2c66ddcadcbd6c45472c75ce77-json.log",
 #### Inspect resource consumption
 
 the `docker container stats` command lists every container and give us informations about ressources they consume (CPU, Memory...)
+
+## Dockerfile
+
+#### What is a Dockerfile
+
+A Dockerfile contains instructions for Docker to build an image automatically.
+
+A Dockerfile is made up of three parts:
+
+- A **basic image**. This is the image from which you will make the modifications to create your image. You are not going to create an operating system on your own!
+
+- The **instructions**. They are Docker commands allowing you to detail all the modifications to be made to the base image to lead to your final image, for example your backend application.
+
+- The **action**. This is the command that is executed by default when the image is launched in a container.
