@@ -912,3 +912,54 @@ A Dockerfile is made up of three parts:
 - The **instructions**. They are Docker commands allowing you to detail all the modifications to be made to the base image to lead to your final image, for example your backend application.
 
 - The **action**. This is the command that is executed by default when the image is launched in a container.
+
+#### First Dockerfile
+
+the first container we will build is a container that has "alpine" as basic image, install node and execute a program that will print "hello world"
+
+:arrow_down: Dockerfile content :arrow_down:
+
+```Docker
+FROM alpine
+
+RUN apk add --update nodejs
+# this command will install node on alpine
+
+COPY  ./helloWorld.js /app/
+# this command copy the helloWOrld file from the host machine to the container.
+
+CMD [ "node", "/app/helloWorld.js" ]
+# this command will execute the helloWorld.js file using node.
+```
+
+#### Build an image
+
+to create an image with a Dockerfile we must use the `docker image build PATH_TO_DOCKERFILE` command.
+
+```sh
+% docker build -t node:latest ./
+[+] Building 16.9s (8/8) FINISHED
+ => [internal] load build definition from Dockerfile                                                                                        0.0s
+ => => transferring dockerfile: 338B                                                                                                        0.0s
+ => [internal] load .dockerignore                                                                                                           0.0s
+ => => transferring context: 2B                                                                                                             0.0s
+ => [internal] load metadata for docker.io/library/alpine:latest                                                                            2.7s
+ => [1/3] FROM docker.io/library/alpine@sha256:a75afd8b57e7f34e4dad8d65e2c7ba2e1975c795ce1ee22fa34f8cf46f96a3be                             2.4s
+ => => resolve docker.io/library/alpine@sha256:a75afd8b57e7f34e4dad8d65e2c7ba2e1975c795ce1ee22fa34f8cf46f96a3be                             0.0s
+ => => sha256:a75afd8b57e7f34e4dad8d65e2c7ba2e1975c795ce1ee22fa34f8cf46f96a3be 1.64kB / 1.64kB                                              0.0s
+ => => sha256:4661fb57f7890b9145907a1fe2555091d333ff3d28db86c3bb906f6a2be93c87 528B / 528B                                                  0.0s
+ => => sha256:28f6e27057430ed2a40dbdd50d2736a3f0a295924016e294938110eeb8439818 1.47kB / 1.47kB                                              0.0s
+ => => sha256:ba3557a56b150f9b813f9d02274d62914fd8fce120dd374d9ee17b87cf1d277d 2.81MB / 2.81MB                                              1.9s
+ => => extracting sha256:ba3557a56b150f9b813f9d02274d62914fd8fce120dd374d9ee17b87cf1d277d                                                   0.4s
+ => [internal] load build context                                                                                                           0.0s
+ => => transferring context: 71B                                                                                                            0.0s
+ => [2/3] RUN apk add --update nodejs                                                                                                      11.4s
+ => [3/3] COPY  ./helloWorld.js /app/                                                                                                       0.0s
+ => exporting to image                                                                                                                      0.2s
+ => => exporting layers                                                                                                                     0.2s
+ => => writing image sha256:b74cf6ec1c6464bd5d52961e4256ebfdfaaa9c6af630093c03975d95c34d6645                                                0.0s
+ => => naming to docker.io/library/node:latest                                                                                              0.0s
+
+% docker run node
+hello world !!
+```
