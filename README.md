@@ -963,3 +963,5 @@ to create an image with a Dockerfile we must use the `docker image build PATH_TO
 % docker run node
 hello world !!
 ```
+
+here we use the `-t` flag to tag the image.
