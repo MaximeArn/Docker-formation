@@ -894,3 +894,7 @@ e06db2c66ddcadcbd6c45472c75ce77-json.log",
 ]
 ```
 </details>
+
+#### Inspect resource consumption
+
+the `docker container stats` command lists every container and give us informations about ressources they consume (CPU, Memory...)
