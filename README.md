@@ -913,6 +913,15 @@ A Dockerfile is made up of three parts:
 
 - The **action**. This is the command that is executed by default when the image is launched in a container.
 
+#### Dockerfile syntax
+
+The syntax of the Dockerfile is as follows:
+
+```Docker
+# Comment
+INSTRUCTION arguments
+```
+
 #### First Dockerfile
 
 the first container we will build is a container that has "alpine" as basic image, install node and execute a program that will print "hello world"
@@ -965,3 +974,19 @@ hello world !!
 ```
 
 here we use the `-t` flag to tag the image.
+
+#### Build steps
+
+When the Docker daemon executes each instruction, it creates a layer and saves it in a new image if necessary.
+
+This is because a Docker image is a stack of read-only layers that represent the Dockerfile instructions.
+
+These layers only have the differences from the previous layer. This is what makes them light and efficient.
+
+#### How the cache works
+
+As soon as it can Docker will use layers stcked in the cache to improve construction speed.
+
+When Docker uses the cache during a build step you will then see the message Using cache and the step is then passed instantly.
+
+we can disable the cache specifyng `--no-cache`
