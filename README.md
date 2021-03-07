@@ -922,6 +922,8 @@ The syntax of the Dockerfile is as follows:
 INSTRUCTION arguments
 ```
 
+Arguments are passed to each statement and can be written over multiple lines for readability using `\`
+
 #### First Dockerfile
 
 the first container we will build is a container that has "alpine" as basic image, install node and execute a program that will print "hello world"
@@ -990,3 +992,26 @@ As soon as it can Docker will use layers stcked in the cache to improve construc
 When Docker uses the cache during a build step you will then see the message Using cache and the step is then passed instantly.
 
 we can disable the cache specifyng `--no-cache`
+
+#### Optimize the cache
+
+Only the RUN, COPY, and ADD instructions create new layers and increase the size of an image. All other instructions only create temporary intermediate images and therefore do not increase the size of the final image.
+
+It is therefore necessary to avoid multiplying the RUN commands, and try to group all the necessary commands in a single RUN instruction.
+
+:warning:
+
+```docker
+RUN apk add --update nodejs
+# this command will install node on alpine
+
+RUN touch ./app/newFile.js
+```
+
+:warning:
+
+```docker
+
+RUN apk add --update nodejs \
+  touch ./app/newFile.js
+```
