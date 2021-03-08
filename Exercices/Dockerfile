@@ -1,10 +1,13 @@
 FROM alpine
 
 RUN apk add --update nodejs
-# this command will install node on alpine 
 
-COPY  ./helloWorld.js ./app/ 
-# this command copy the helloWOrld file from the host machine to the container.
+COPY  ./helloWorld.js /app/ 
 
-CMD node /app/helloWorld.js
-# this command will execute the helloWorld.js file using node.
+COPY ./goodbye.js /app/
+
+WORKDIR /app/
+
+
+ENTRYPOINT [ "node" ]
+CMD ["helloWorld.js"]

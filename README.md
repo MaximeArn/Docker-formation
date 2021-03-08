@@ -1151,3 +1151,45 @@ CMD node app.js
 :warning: The form recommended by Docker is the exec form.
 
 ##### ENTRYPOINT
+
+The `ENTRYPOINT` instruction allow us to specify the command that will **always** be executed when the container will start.
+
+this instruction also has an exec and an shell form. However, the shell form is deprecated
+
+```docker
+ENTRYPOINT ["node",""./app/helloWorld.js]
+#this instruction cannot be overide and will always be run
+```
+
+You can still override the entry point with the `--entrypoint` option:
+
+```docker
+docker run -it --entrypoint="/bin/sh" test
+```
+
+##### Interaction between ENTRYPOINT and CMD
+
+```docker
+FROM alpine
+
+RUN apk add --update nodejs
+
+COPY  ./helloWorld.js /app/
+
+COPY ./goodbye.js /app/
+
+WORKDIR /app/
+
+
+ENTRYPOINT [ "node" ]
+CMD ["helloWorld.js"]
+```
+
+```sh
+% docker run node
+hello world
+% docker run node goodbye.js
+goodbye
+```
+
+in the execution the executed file will be helloWorld.js as specfied in `CMD` instruction and in second call we overide this and pass a new file.
