@@ -1085,3 +1085,13 @@ ADD back/ /app/
 Docker strongly recommends using only absolute paths with WORKDIR for readability and clarity.
 
 The relative paths of the destinations are interpreted according to the WORKDIR instruction
+
+#### COPY
+
+`COPY` is exactly the same that `ADD` excepting two point.
+
+- COPY unlike ADD, does not accept URLs as the source.
+
+- COPY unlike ADD, will not automatically decompress local archives passed as source.
+
+Docker recommends using COPY because you don't risk unzipping archives without you wanting to.
