@@ -1057,3 +1057,31 @@ The shell form allows one or more commands to be executed by a shell which defau
 ```docker
 RUN echo "Bonjour !"
 ```
+
+#### ADD
+
+The ADD instruction copies files, folders, or remote files using URLs and appends them to the image file system.
+
+##### Syntax
+
+```docker
+ADD SOURCE... DESTINATION
+```
+
+```docker
+ADD exemple.txt /app/
+```
+
+Copy the example.txt file to the / app / folder of the container.
+
+:warning: Note that for Docker to consider that the destination is a folder, it must end with /.
+
+If we pass a folder All contents of the folder, including subfolders, will be copied to the destination folder. The folder will not be copied, only its contents. We can see that like the spread operator.
+
+```docker
+ADD back/ /app/
+```
+
+Docker strongly recommends using only absolute paths with WORKDIR for readability and clarity.
+
+The relative paths of the destinations are interpreted according to the WORKDIR instruction
