@@ -1110,3 +1110,44 @@ WORKDIR /test/
 # /test
 RUN pwd
 ```
+
+#### CMD and ENTRYPOINT
+
+By default, Docker has a default entry point which is `/bin/sh -c` but does not have a default command.
+it means that when we pass a command it is executed in a sh terminal.
+
+When we use the CMD instrction or when we pass a command during a run this command is executed in an sh shell.
+
+If we want to change this behavior we must use the `ENTRYPOINT` instruction
+
+##### CMD
+
+The CMD instruction is used to provide the command executed by default for containers launched from the image.
+
+There can only be one CMD instruction per Dockerfile
+
+as for `RUN` there is two syntax for the `CMD` instruction.
+
+###### exec form
+
+```docker
+CMD ["exécutable","param1","param2"]
+```
+
+```docker
+CMD ["node","app.js"]
+```
+
+###### shell form
+
+```docker
+CMD commande param1 param2
+```
+
+```docker
+CMD node app.js
+```
+
+:warning: The form recommended by Docker is the exec form.
+
+##### ENTRYPOINT
