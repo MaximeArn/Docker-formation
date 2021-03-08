@@ -1095,3 +1095,18 @@ The relative paths of the destinations are interpreted according to the WORKDIR 
 - COPY unlike ADD, will not automatically decompress local archives passed as source.
 
 Docker recommends using COPY because you don't risk unzipping archives without you wanting to.
+
+#### WORKDIR
+
+The WORKDIR statement changes the working directory for all RUN, CMD, ENTRYPOINT, COPY, and ADD statements.
+
+You can use multiple WORKDIRs in a Dockerfile, in this case each WORKDIR will apply for instructions until the next WORKDIR.
+
+```docker
+WORKDIR /app/
+RUN pwd
+# /app
+WORKDIR /test/
+# /test
+RUN pwd
+```
