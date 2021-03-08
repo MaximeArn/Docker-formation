@@ -1035,3 +1035,25 @@ From alpine
 # we can also specify a version
 From alpine:3.13.2
 ```
+
+#### RUN
+
+The RUN instruction is used to execute all the commands specified in a new layer above the last intermediate image and then to save the result. The resulting image will be used for the next step
+
+##### exec shape of RUN
+
+The exec form uses a JSON array of words which will then be interpreted into an instruction.
+
+It allows executing commands with executables without necessarily using a shell.
+
+```docker
+RUN ["executable", "param1", "param2"]
+```
+
+##### shell shape of RUN
+
+The shell form allows one or more commands to be executed by a shell which defaults to sh.
+
+```docker
+RUN echo "Bonjour !"
+```
