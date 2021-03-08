@@ -1015,3 +1015,23 @@ RUN touch ./app/newFile.js
 RUN apk add --update nodejs \
   touch ./app/newFile.js
 ```
+
+### Instructions
+
+#### FROM
+
+every Dockerfile must conain a `FROM` instruction as a first instruction. A Dockerfile can only contain one `FROM` instruction.
+
+This instruction specify the parent image. The image from which we are going to make modifications to create our own.
+
+Most of the time image pull via `FROM` are pull from the **Docker Hub**`. The **Docker Hub** is the official registry of Docker.
+A registry is an hosting service that contains a repository for each image. This repository contains different versions of the image differentiated by the tag.
+
+###### syntax:
+
+```Docker
+# if we don't provide a tag the default one is "latest"
+From alpine
+# we can also specify a version
+From alpine:3.13.2
+```
