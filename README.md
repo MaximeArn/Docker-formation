@@ -1216,3 +1216,48 @@ ENTRYPOINT [ "node", ${filename}]
 ```
 
 to pass data to these args we must use `--build-arg NAME=VALUE`
+
+#### ENV
+
+The ENV instruction is used to define environment variables.
+
+```docker
+FROM alpine
+
+ENV ENVIRONMENT=production
+
+RUN apk add --update nodejs
+
+COPY  ./helloWorld.js /app/
+
+WORKDIR /app/
+
+CMD [ "node", "helloWorld.js" ]
+```
+
+this environment variable is visible using `env` command.
+
+```sh
+% docker run -it mynode sh
+/app # env
+HOSTNAME=b21afb716155
+SHLVL=1
+HOME=/root
+ENVIRONMENT=production
+TERM=xterm
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+PWD=/app
+```
+
+we can write multiple env variable in one line or in multiple lines :
+
+```docker
+ENV CLE1="Une valeur1"
+ENV CLE2="Une valeur2"Docker
+```
+
+```docker
+ENV CLE1="Une valeur1" CLE2="Une valeur2"
+```
+
+the difference between `ARG` and `ENV` is that environment variables will be usable by the container after the build unlike `ARG`.
