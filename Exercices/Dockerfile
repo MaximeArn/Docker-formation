@@ -1,12 +1,11 @@
-ARG version
-FROM alpine:${version}
+FROM alpine
+
+ENV ENVIRONMENT=production
 
 RUN apk add --update nodejs
 
-ARG filename
-
-COPY  ./${filename} /app/ 
+COPY  ./helloWorld.js /app/ 
 
 WORKDIR /app/
 
-ENTRYPOINT [ "node", ${filename}]
+CMD [ "node", "helloWorld.js" ]
