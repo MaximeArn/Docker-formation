@@ -1193,3 +1193,26 @@ goodbye
 ```
 
 in the execution the executed file will be helloWorld.js as specfied in `CMD` instruction and in second call we overide this and pass a new file.
+
+#### ARG
+
+The ARG instruction is used to define variables that will be used by the user launching the containers.
+ARG allows to provide values ​​during the build by passing them as values ​​of variables defined in the Dockerfile.
+
+```Docker
+ARG version
+FROM alpine:${version}
+
+RUN apk add --update nodejs
+
+ARG filename
+
+COPY  ./${filename} /app/
+
+WORKDIR /app/
+
+ENTRYPOINT [ "node", ${filename}]
+
+```
+
+to pass data to these args we must use `--build-arg NAME=VALUE`
