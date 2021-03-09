@@ -1261,3 +1261,128 @@ ENV CLE1="Une valeur1" CLE2="Une valeur2"
 ```
 
 the difference between `ARG` and `ENV` is that environment variables will be usable by the container after the build unlike `ARG`.
+
+##### LABEL
+
+the `LABEL` instruction is used to define meta datas for an image.
+
+```docker
+FROM alpine
+
+LABEL author=maxime version=2.5 language=en
+
+ENV ENVIRONMENT=production
+
+RUN apk add --update nodejs
+
+COPY  ./helloWorld.js /app/
+
+WORKDIR /app/
+
+CMD [ "node", "helloWorld.js" ]
+```
+
+We will see these labels when we inspect an image.
+
+#### Inspect an image
+
+The command to inspect an image is `docker image inspect IMAGE`.
+
+It allows you to obtain all the Docker configuration for its creation. It allows in particular to obtain all the hashes of the layers of the image.
+
+It also provides access to the environment variables that have been defined.
+
+```sh
+% docker image inspect mynode
+[
+    {
+        "Id": "sha256:c6f2c9efc9ffe9d8045d365d777e1f50d6663521f905d4f0ec97a3e36ce70c7c",
+        "RepoTags": [
+            "mynode:latest"
+        ],
+        "RepoDigests": [],
+        "Parent": "",
+        "Comment": "buildkit.dockerfile.v0",
+        "Created": "2021-03-09T13:09:54.83000184Z",
+        "Container": "",
+        "ContainerConfig": {
+            "Hostname": "",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": null,
+            "Cmd": null,
+            "Image": "",
+            "Volumes": null,
+            "WorkingDir": "",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": null
+        },
+        "DockerVersion": "",
+        "Author": "",
+        "Config": {
+            "Hostname": "",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            //here are ours env variables
+            "Env": [
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "ENVIRONMENT=production"
+            ],
+            "Cmd": [
+                "node",
+                "helloWorld.js"
+            ],
+            "ArgsEscaped": true,
+            "Image": "",
+            "Volumes": null,
+            "WorkingDir": "/app/",
+            "Entrypoint": null,
+            "OnBuild": null,
+            //Here are our labels
+            "Labels": {
+                "author": "maxime",
+                "language": "en",
+                "version": "2.5"
+            }
+        },
+        "Architecture": "amd64",
+        "Os": "linux",
+        "Size": 47063444,
+        "VirtualSize": 47063444,
+        "GraphDriver": {
+            "Data": {
+                "LowerDir": "/var/lib/docker/overlay2/4d76jseuc47rewubadvma56qu/diff:/var/lib/docker/overlay2/j9t1nz7dz6f6337xtnvmemecd/diff:/var/lib/docker/overlay2/f44bdb2beb377c238c93853e212ca9b2e7c68c4f965e13d73308bcdce68be9e0/diff",
+                "MergedDir": "/var/lib/docker/overlay2/nmad7hfgond01occku5lag82w/merged",
+                "UpperDir": "/var/lib/docker/overlay2/nmad7hfgond01occku5lag82w/diff",
+                "WorkDir": "/var/lib/docker/overlay2/nmad7hfgond01occku5lag82w/work"
+            },
+            "Name": "overlay2"
+        },
+        "RootFS": {
+            "Type": "layers",
+            "Layers": [
+                "sha256:cb381a32b2296e4eb5af3f84092a2e6685e88adbc54ee0768a1a1010ce6376c7",
+                "sha256:548c0b2d97f38bcc245ef46d7965c598fd369b3219382654f877a4887d1662aa",
+                "sha256:fa4b0cb92820932d66ddf845a93d8988134ce17b5c59cc3498fb5882e57a9ee4",
+                "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
+            ]
+        },
+        "Metadata": {
+            "LastTagTime": "2021-03-09T13:20:11.626081094Z"
+        }
+    }
+]
+```
