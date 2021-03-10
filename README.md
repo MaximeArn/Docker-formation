@@ -1351,7 +1351,7 @@ It also provides access to the environment variables that have been defined.
             "WorkingDir": "/app/",
             "Entrypoint": null,
             "OnBuild": null,
-            //Here are our labels
+            //And here are our labels
             "Labels": {
                 "author": "maxime",
                 "language": "en",
