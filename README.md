@@ -1386,3 +1386,28 @@ It also provides access to the environment variables that have been defined.
     }
 ]
 ```
+
+### a few Commands
+
+#### docker commit
+
+The docker container commit command
+The docker container commit command allows you to create an image from the changes made in a container.
+
+In other words, it allows to run a container from an image, then to make modifications (installations, updates, file copy etc) and finally to create a new image containing these modifications.
+
+##### syntax
+
+```sh
+% docker container commit --help
+
+Usage:  docker container commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]
+
+Create a new image from a container's changes
+
+Options:
+  -a, --author string    Author (e.g., "John Hannibal Smith <hannibal@a-team.com>")
+  -c, --change list      Apply Dockerfile instruction to the created image
+  -m, --message string   Commit message
+  -p, --pause            Pause container during commit (default true)
+```
