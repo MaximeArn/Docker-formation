@@ -1437,3 +1437,19 @@ PING google.fr (172.217.18.195): 56 data bytes
 64 bytes from 172.217.18.195: seq=7 ttl=37 time=46.567 ms
 64 bytes from 172.217.18.195: seq=8 ttl=37 time=45.386 ms
 ```
+
+#### docker image tag
+
+The docker image tag command allows you to create a tag for an image.
+
+Indeed, the same image can have several tags and when you build your images you may want to keep previous versions.
+
+##### Syntax
+
+```
+docker image tag --help
+
+Usage: docker image tag SOURCE_IMAGE:TAG TARGET_IMAGE:TAG
+
+Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+```
