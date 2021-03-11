@@ -1389,7 +1389,7 @@ It also provides access to the environment variables that have been defined.
 
 ### a few Commands
 
-#### docker commit
+#### docker container commit
 
 The docker container commit command
 The docker container commit command allows you to create an image from the changes made in a container.
@@ -1410,4 +1410,30 @@ Options:
   -c, --change list      Apply Dockerfile instruction to the created image
   -m, --message string   Commit message
   -p, --pause            Pause container during commit (default true)
+```
+
+#### docker container logs
+
+The docker container logs command displays the logs of a container.
+
+An interesting option is --follow or -f in order to follow the logs of a container while it is running. It is very convenient for debugging.
+
+Another option is -timestamps or -t which gets a timestamp for each log line.
+
+##### Example
+
+```sh
+docker run alpine ping google.fr
+
+// LOGS -->
+PING google.fr (172.217.18.195): 56 data bytes
+64 bytes from 172.217.18.195: seq=0 ttl=37 time=45.958 ms
+64 bytes from 172.217.18.195: seq=1 ttl=37 time=46.778 ms
+64 bytes from 172.217.18.195: seq=2 ttl=37 time=93.455 ms
+64 bytes from 172.217.18.195: seq=3 ttl=37 time=45.174 ms
+64 bytes from 172.217.18.195: seq=4 ttl=37 time=45.841 ms
+64 bytes from 172.217.18.195: seq=5 ttl=37 time=51.209 ms
+64 bytes from 172.217.18.195: seq=6 ttl=37 time=56.460 ms
+64 bytes from 172.217.18.195: seq=7 ttl=37 time=46.567 ms
+64 bytes from 172.217.18.195: seq=8 ttl=37 time=45.386 ms
 ```
