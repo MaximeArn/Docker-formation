@@ -1468,3 +1468,14 @@ The official images are the only images on Docker Hub that have just their name 
 ### Image vs repository
 
 a repositoty contains all the versions of an image.
+
+### Description of an official image repository
+
+![](./ressources/node-docker-hub.png)
+
+Here we can see that this image is an official and that it was downloaded more than one billion times. We also have the command to dowload the image.
+
+![](ressources/node-all-versions.png)
+
+then we have the list of all the versions that contains this repository.
+By clicking on a version we can see the Dockerfile of the image.
