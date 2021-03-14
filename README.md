@@ -1453,3 +1453,18 @@ Usage: docker image tag SOURCE_IMAGE:TAG TARGET_IMAGE:TAG
 
 Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
 ```
+
+## Docker Hub
+
+### What is Docker Hub
+
+Docker Hub is the official Docker image platform. It is a registry. It is a hosting service that contains a very large number of image repositories.
+
+Docker Hub is used to provide all official images.
+An official image is an image that has been checked by Docker teams and whose Dockerfile uses the best recommendations. The security of the images is regularly checked and frequent updates are carried out. The official images are produced with a partnership between Docker and the teams of developers of the libraries (nginx, redis, mongoDB etc.).
+
+The official images are the only images on Docker Hub that have just their name as a repository and not user / name. For example, just node, redis etc.
+
+### Image vs repository
+
+a repositoty contains all the versions of an image.
