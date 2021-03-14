@@ -1,8 +1,6 @@
 FROM alpine
 
-LABEL author=maxime version=2.5 language=en
-
-ENV ENVIRONMENT=production
+LABEL author=maxime version=1.0 language=en
 
 RUN apk add --update nodejs
 

@@ -1479,3 +1479,13 @@ Here we can see that this image is an official and that it was downloaded more t
 
 then we have the list of all the versions that contains this repository.
 By clicking on a version we can see the Dockerfile of the image.
+
+### Push an image on Docker hub
+
+before pushing an image on docker it is necessary to login. To do it we must use the username that we provide during the register and the password.
+
+When we are loged we can use the following command to push an image on docker hub
+
+On docker hub we have only one free repository and as many as we want public repositories.
+
+If we work on a server or a shared computer don't forgot to log out with `docker logout`
