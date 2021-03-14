@@ -1489,3 +1489,37 @@ When we are loged we can use the following command to push an image on docker hu
 On docker hub we have only one free repository and as many as we want public repositories.
 
 If we work on a server or a shared computer don't forgot to log out with `docker logout`
+
+To push an image we will use the following command:
+`docker push [OPTIONS] NAME[:TAG]`
+
+#### Example
+
+- We build an image based on this Dockerfile :
+
+```docker
+FROM alpine
+
+LABEL author=maxime version=1.0 language=en
+
+RUN apk add --update nodejs
+
+COPY  ./helloWorld.js /app/
+
+WORKDIR /app/
+
+CMD [ "node", "helloWorld.js" ]
+```
+
+```sh
+docker build -t maximearnld/helloworld ./Exercices
+```
+
+:warning: The tag of the image must be adapted to the repository name:
+`user/repository`
+
+Then we must push this image on the docker hub:
+
+```sh
+docker push maximearnld/helloworld
+```
