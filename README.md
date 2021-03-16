@@ -1523,3 +1523,15 @@ Then we must push this image on the docker hub:
 ```sh
 docker push maximearnld/helloworld
 ```
+
+### Docker save
+
+The `docker image save` command allows you to save one or more images in a tar archive.
+
+Archives are a way to easily share images without going through a repository.
+
+By default, the archive is sent to the standard output stream (STDOUT), so you must use the `-o` or `--output` option to save it to a file.
+
+#### Exemple
+
+`docker image save -o ../../COLLEAGUE_IMAGE MY_IMAGE_TO_SAVE`
