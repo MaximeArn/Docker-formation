@@ -1524,7 +1524,7 @@ Then we must push this image on the docker hub:
 docker push maximearnld/helloworld
 ```
 
-### Docker save
+### Docker image save
 
 The `docker image save` command allows you to save one or more images in a tar archive.
 
@@ -1535,3 +1535,11 @@ By default, the archive is sent to the standard output stream (STDOUT), so you m
 #### Exemple
 
 `docker image save -o ../../COLLEAGUE_IMAGE MY_IMAGE_TO_SAVE`
+
+### docker image load
+
+The docker image load command is used to load an image from an archive passed to standard input.
+
+#### Example
+
+`docker image load -i ../IMAGE_TO_LOAD`
