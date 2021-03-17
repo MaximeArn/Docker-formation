@@ -1543,3 +1543,15 @@ The docker image load command is used to load an image from an archive passed to
 #### Example
 
 `docker image load -i ../IMAGE_TO_LOAD`
+
+### Docker container export
+
+The docker container export command allows you to export a container file system to a tar archive.
+
+Warning ! This command does not export the volumes associated with the container
+
+By default, the archive is sent to the standard output stream (STDOUT), so you must use the `-o` or `--output` option to save it to a file.
+
+#### Exemple
+
+`docker container export -o containe.tar container`
