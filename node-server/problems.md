@@ -52,3 +52,40 @@ for the node-server container we will pass
 The host port cannot be anything other than 80 but the container port can be any other port
 
 the `-p` option for `--publish` will link a port of the container to a port of the host machine.
+
+# installation of all dependencies at each build
+
+```docker
+FROM node:alpine
+
+WORKDIR /app
+
+COPY . .
+
+RUN npm install
+
+ENV PATH = $PATH:/app/node_modules/.bin
+
+CMD ["nodemon", "/app.js"]
+```
+
+the problem with the docker file above is that as soon as we will modify a file the build cache will be stoped. Indeed the `COPY` instruction is above the `RUN` commmand that installs the dependencies.
+
+To fix it we must divide the `COPY` instruction.
+In a first time we copy the package.json next we run tha `npm install` command and at last we copy the rest of the files.
+
+```docker
+FROM node:alpine
+
+WORKDIR /app
+
+COPY package.json .
+
+RUN npm install
+
+ENV PATH = $PATH:/app/node_modules/.bin
+
+COPY . .
+
+CMD ["nodemon", "app.js"]
+```
