@@ -1565,3 +1565,8 @@ It also accepts URLs, so you can retrieve remote archives. If the archive is com
 #### Exemple
 
 `docker image import shared_container.tar`
+
+### EXPOSE
+
+The expose instruction specify that a container will need some ports to work
+This instruction does not oppen the port it just specify it.
