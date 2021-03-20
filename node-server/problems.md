@@ -37,3 +37,18 @@ To do it we will pass a new value to `PATH` and we will add the path to the fold
 ```docker
 ENV PATH = $PATH:/app/node_modules/.bin
 ```
+
+# Communication through ports
+
+by default we cannot access to the ports of a container
+To do it we must specify an option at the start of the container
+
+`docker run -p HOST_PORT:CONTAINER_PORT.`
+
+for the node-server container we will pass
+
+`docker run -p 80:80 node-server`
+
+The host port cannot be anything other than 80 but the container port can be any other port
+
+the `-p` option for `--publish` will link a port of the container to a port of the host machine.
