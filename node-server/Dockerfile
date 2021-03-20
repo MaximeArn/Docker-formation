@@ -6,4 +6,6 @@ COPY . .
 
 RUN npm install
 
-CMD ["nodemon", "/app.js"]
+ENV PATH = $PATH:/app/node_modules/.bin
+
+CMD ["nodemon", "app.js"]
