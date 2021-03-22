@@ -1575,3 +1575,22 @@ This instruction does not oppen the port it just specify it.
 
 the `.dockerignore` as the `.gitignore` is a file were we can specify files or schema of files.
 These files will be ignored by the copy instruction of the `.dockerignore`
+
+## Persistence
+
+By default, files in a container are written to a layer with write permissions, but this layer is deleted if the container no longer exists.
+
+Also, this layer uses UnionFS as we have seen, which reduces write and read performance. It is therefore not at all suitable for a database.
+
+To persist data, Docker offers the use of bind mounts and volumes which help resolve performance issues (by writing directly to the host's filesystem) and persistence issues (they are retained after removing the container).
+
+Regardless of which persistence you choose, it makes no difference from a container perspective - the data is exposed in the container file system.
+
+![](ressources/persistence.png
+
+In the case of a `bind mount`: these are simply files and folders anywhere on the host's file system. Any process can change them, including outside of Docker.
+
+In the case of a `volume`: Docker uses the file system of the host machine but manages this space itself and the user must go through the Docker CLI. On
+GNU/Linux the location will be /var/lib/docker/volumes/ but you should never touch it directly!
+
+In the case of a `TMPFS` (temporary file system): it is a temporary storage in random access memory (RAM).
