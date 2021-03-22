@@ -1570,3 +1570,8 @@ It also accepts URLs, so you can retrieve remote archives. If the archive is com
 
 The expose instruction specify that a container will need some ports to work
 This instruction does not oppen the port it just specify it.
+
+## Docker Ignore
+
+the `.dockerignore` as the `.gitignore` is a file were we can specify files or schema of files.
+These files will be ignored by the copy instruction of the `.dockerignore`
