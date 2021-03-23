@@ -89,3 +89,7 @@ COPY . .
 
 CMD ["nodemon", "app.js"]
 ```
+
+# Rebuild for each change
+
+when we make a modification in the files, the file is not modified in the container. To modify the changes in the contaier we will use a bind mount.
