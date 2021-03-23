@@ -1616,3 +1616,7 @@ The --mount option accepts a series of key-value pairs that are separated by com
 - `target`, allows to specify the target which must be the path where the files and the folders will be mounted in the container.
 
 - `readonly` makes the mount read-only. The container will then not be able to write to it. This use case is rare.
+
+#### Exemple :
+
+`docker run -it --mount type=bind,source="$(pwd)/Exercices/",target=/data alpine sh`
