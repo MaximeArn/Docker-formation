@@ -1594,3 +1594,25 @@ In the case of a `volume`: Docker uses the file system of the host machine but m
 GNU/Linux the location will be /var/lib/docker/volumes/ but you should never touch it directly!
 
 In the case of a `TMPFS` (temporary file system): it is a temporary storage in random access memory (RAM).
+
+### Bind Mounts
+
+We should think of a `bind mount` as a two-way link between container and host for a folder (and its contents) or a file.
+
+the recommended way to store data with Docker is `Volumes`, so bind mounts should only be used in the following cases :
+
+- Share configuration files between host and containers.
+
+- Share the source code during development to allow the live reload.
+
+to create a `bind mount` with the docker CLI we must use the `--mount` option
+
+The --mount option accepts a series of key-value pairs that are separated by commas, the order of the pairs is not important:
+
+- `type` allows you to specify the desired mount type:` bind mount`, `volume` or` tmpfs`. The possible values are therefore bind, volume and tmpfs. Here it is therefore necessary to put bind.
+
+- `source` or` src` allows to specify the source. This is the absolute path on the host of the file or folder that is to be mounted in the container.
+
+- `target`, allows to specify the target which must be the path where the files and the folders will be mounted in the container.
+
+- `readonly` makes the mount read-only. The container will then not be able to write to it. This use case is rare.
