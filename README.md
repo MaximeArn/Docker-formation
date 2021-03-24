@@ -1638,3 +1638,25 @@ They allow :
 - they allow you to easily save, restore or migrate data.
 
 - they have high performance and are controlled by Docker which is absolutely necessary for databases.
+
+#### create a volume
+
+`docker volume create NAME`
+
+#### remove a volume
+
+`docker volume rm NAME_OR_ID`
+
+this command will remove the specified volume
+
+`docker volume prune`
+
+this command will remove all unused volumes
+
+#### list volumes
+
+`docker volume ls`
+
+#### mount a volume
+
+to mount a `volume` in a container we will use the same option as for the `bind mounts` but we will set the `type` at `volume`
