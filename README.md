@@ -1620,3 +1620,21 @@ The --mount option accepts a series of key-value pairs that are separated by com
 #### Exemple :
 
 `docker run -it --mount type=bind,source="$(pwd)/Exercices/",target=/data alpine sh`
+
+### Volumes
+
+Volumes are the recommended way to store data with Docker.
+
+They allow :
+
+- use the Docker CLI.
+
+- share data between several running containers.
+
+- to use a storage space totally managed by Docker and therefore not to depend on the host system. They will work regardless of the host and there is no need to worry about paths like with bind mounts.
+
+- they allow data to be stored on a remote host. Volumes are not necessarily stored on the host machine.
+
+- they allow you to easily save, restore or migrate data.
+
+- they have high performance and are controlled by Docker which is absolutely necessary for databases.
