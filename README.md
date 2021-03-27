@@ -1660,3 +1660,9 @@ this command will remove all unused volumes
 #### mount a volume
 
 to mount a `volume` in a container we will use the same option as for the `bind mounts` but we will set the `type` at `volume`
+
+#### share volumes between several containers
+
+As we sayed it is possible to mount a container in several container.
+
+We can simply specify the same volumes for two (or more) containers or we can use the `--volumes-from CONTAINER` option to mount all the volumes of a container in an other one.
