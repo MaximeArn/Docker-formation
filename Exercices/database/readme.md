@@ -1,0 +1,4 @@
+- pull mongo official image `docker run --name database -d mongo`
+- connects to te container `docker exec -it database sh`
+- start mongo `mongo`
+-
