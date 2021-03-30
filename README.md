@@ -1666,3 +1666,21 @@ to mount a `volume` in a container we will use the same option as for the `bind 
 As we sayed it is possible to mount a container in several container.
 
 We can simply specify the same volumes for two (or more) containers or we can use the `--volumes-from CONTAINER` option to mount all the volumes of a container in an other one.
+
+## Networks
+
+One of Docker's great powers is the ability to connect containers to each other very easily.
+You can fine-tune how they connect using Docker networks
+
+Docker network drivers
+The Docker network system use drivers. There are several by default.
+
+### The `Bridge` driver
+
+The bridge is the default driver for Docker networks.
+
+These networks are useful when trying to get containers to communicate on a single machine.
+
+### The `Host` driver
+
+### The `overlay` driver
