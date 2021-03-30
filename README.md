@@ -1683,4 +1683,6 @@ These networks are useful when trying to get containers to communicate on a sing
 
 ### The `Host` driver
 
+It allows to completely remove the network management by Docker, it is as if the containers were running directly on the host. Attention, only for the network! (Not for process, file system isolation etc).
+
 ### The `overlay` driver
