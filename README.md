@@ -1681,6 +1681,12 @@ The bridge is the default driver for Docker networks.
 
 These networks are useful when trying to get containers to communicate on a single machine.
 
+When you launch Docker on a machine, a default bridge network is created automatically.
+
+All containers that are subsequently created join this network by default. You can of course prevent this by specifying another network.
+
+The problem with this default network is that containers can only communicate using their IP address, which is very inflexible. Not to mention the fact that the IP addresses are not fixed for each container: on different hosts they will not be the same.
+
 ### The `Host` driver
 
 It allows to completely remove the network management by Docker, it is as if the containers were running directly on the host. Attention, only for the network! (Not for process, file system isolation etc).
