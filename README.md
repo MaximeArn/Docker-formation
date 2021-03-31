@@ -1675,6 +1675,18 @@ You can fine-tune how they connect using Docker networks
 Docker network drivers
 The Docker network system use drivers. There are several by default.
 
+### Basic commands
+
+#### `docker network ls`
+
+this command list all the networks.
+
+![](ressources/networks-list.png)
+
+#### `docker network inspect NETWORK`
+
+docker inspect display a JSON file that contains all the info about a specific network.
+
 ### The `Bridge` driver
 
 The bridge is the default driver for Docker networks.
