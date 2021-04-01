@@ -1699,6 +1699,22 @@ All containers that are subsequently created join this network by default. You c
 
 The problem with this default network is that containers can only communicate using their IP address, which is very inflexible. Not to mention the fact that the IP addresses are not fixed for each container: on different hosts they will not be the same.
 
+#### Own bridges
+
+We have seen that Docker provides a default bridge network to which all containers connect.
+
+This default bridge network must not be used. Docker signals that it should be deprecated, but that it is necessary to keep it for compatibility reasons.
+
+We can also create our own bridge networks, these networks are much better for the following reasons:
+
+- they allow automatic DNS resolution between containers. By using the default bridge network, containers can only interact using their IP address. On a bridge network that we create, containers can use their name to be on the network.
+
+- they allow better insulation. If you don't specify a network for a container it connects to the default bridge network (as we have also seen). This decreases security, because containers that do not belong to the same applications or services can communicate through this network. With custom networks we specify which containers are on which networks and therefore can define exactly which containers can communicate with each other.
+
+- they allow you to connect or disconnect containers at runtime. This is not possible with the default network.
+
+- they allow a different configuration for each network. What the default network does not allow, because there is only one.
+
 ### The `Host` driver
 
 It allows to completely remove the network management by Docker, it is as if the containers were running directly on the host. Attention, only for the network! (Not for process, file system isolation etc).
