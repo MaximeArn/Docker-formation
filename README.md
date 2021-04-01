@@ -1715,6 +1715,29 @@ We can also create our own bridge networks, these networks are much better for t
 
 - they allow a different configuration for each network. What the default network does not allow, because there is only one.
 
+##### Create a bridge
+
+To create a new bridge network as with a lot of docker entities we will use the `create` command
+
+`docker network create NAME`
+
+by default the network created is a bridge.
+
+##### list all bridges
+
+`docker network ls`
+
+```sh
+% docker network create myBridge
+1e73867802ce4d706c01b3be98c5e99ad5daed2cb7e58c6274c0a76035dcb7f6
+% docker network ls
+NETWORK ID     NAME       DRIVER    SCOPE
+6f5aac2a5f6a   bridge     bridge    local
+65a379ae3ed2   host       host      local
+1e73867802ce   myBridge   bridge    local
+6e1f264393c7   none       null      local
+```
+
 ### The `Host` driver
 
 It allows to completely remove the network management by Docker, it is as if the containers were running directly on the host. Attention, only for the network! (Not for process, file system isolation etc).
