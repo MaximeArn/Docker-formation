@@ -1738,6 +1738,89 @@ NETWORK ID     NAME       DRIVER    SCOPE
 6e1f264393c7   none       null      local
 ```
 
+##### start container on other network
+
+to start a container on an other network that the default one we will use the `--network NAME` option.
+
+##### DNS exercice
+
+As we say with creating our own networks docker will allow us to call containers by their names until instead of using their ID.
+
+```sh
+Docker-formation % docker run --name serv1 --network myBridge -d alpine ping google.fr
+72a00af3e2fec02744c65a465b0eae7e3a1363e71794153bfca136be3e9858c2
+Docker-formation % docker run --name serv2 --network myBridge -d alpine ping google.fr
+6e176852860488b49f38faecd3efe17d8d365fef825bcf013a06cef9d9ea6f82
+Docker-formation % docker network inspect myBridge
+[
+    {
+        "Name": "myBridge",
+        "Id": "4ec53e60cdc8cfecd964888bf77c34d031e3b8bfe6de309415c744fc8147a658",
+        "Created": "2021-04-01T16:56:01.7646278Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "172.19.0.0/16",
+                    "Gateway": "172.19.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {
+            "6e176852860488b49f38faecd3efe17d8d365fef825bcf013a06cef9d9ea6f82": {
+                "Name": "serv2",
+                "EndpointID": "503a20b5f118ad3ec9905d7d3a51b60005b2a1e85fa66234c041cb1d1d64d497",
+                "MacAddress": "02:42:ac:13:00:03",
+                "IPv4Address": "172.19.0.3/16",
+                "IPv6Address": ""
+            },
+            "72a00af3e2fec02744c65a465b0eae7e3a1363e71794153bfca136be3e9858c2": {
+                "Name": "serv1",
+                "EndpointID": "2949da51100cc82b62e71679ece94ee8f1ece685e99449985c19e5cad1748160",
+                "MacAddress": "02:42:ac:13:00:02",
+                "IPv4Address": "172.19.0.2/16",
+                "IPv6Address": ""
+            }
+        },
+        "Options": {},
+        "Labels": {}
+    }
+]
+maxime@MacBook-Maxime Docker-formation % docker exec -it serv1 ping serv2
+PING serv2 (172.19.0.3): 56 data bytes
+64 bytes from 172.19.0.3: seq=0 ttl=64 time=0.226 ms
+64 bytes from 172.19.0.3: seq=1 ttl=64 time=0.259 ms
+64 bytes from 172.19.0.3: seq=2 ttl=64 time=0.090 ms
+64 bytes from 172.19.0.3: seq=3 ttl=64 time=0.293 ms
+64 bytes from 172.19.0.3: seq=4 ttl=64 time=0.178 ms
+64 bytes from 172.19.0.3: seq=5 ttl=64 time=0.306 ms
+64 bytes from 172.19.0.3: seq=6 ttl=64 time=0.101 ms
+64 bytes from 172.19.0.3: seq=7 ttl=64 time=0.166 ms
+64 bytes from 172.19.0.3: seq=8 ttl=64 time=0.226 ms
+64 bytes from 172.19.0.3: seq=9 ttl=64 time=0.126 ms
+64 bytes from 172.19.0.3: seq=10 ttl=64 time=0.129 ms
+```
+
+Here we
+
+- create a new network called myBridge
+- create 2 containers with names and we connect them to the new network.
+- inspect the network and we see the 2 containers in the container field.
+- finally we execute a command in `serv1` that will ping an IP adress that is here `serv2`.
+
+docker will understand what is `serv2` and will find its IP.
+
 ### The `Host` driver
 
 It allows to completely remove the network management by Docker, it is as if the containers were running directly on the host. Attention, only for the network! (Not for process, file system isolation etc).
