@@ -95,9 +95,7 @@ CMD [ "nodemon", "src/app.js" ]
 - run a container based on the image created with the dockerfile
 - connect it to the same network as the database container
 - link a port of the container to the 80's port of the host machine
-- mount a bind mount in the container
 
 ```sh
-docker run --network backendNet --mount type=bind,source="$(pwd)/src",t
-arget=/app/src -p80:80 --name node-server node-server
+docker run --network backendNet -p80:80 --name node-server node-server
 ```
