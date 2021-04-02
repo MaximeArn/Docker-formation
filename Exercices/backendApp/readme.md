@@ -63,3 +63,41 @@ The server generated these startup warnings when booting:
 bye
 # exit
 ```
+
+## Node Server
+
+### docker file
+
+- copy the package.json
+- run npm install
+- copy the script
+- fix the path for nodemon
+- run te script
+
+```docker
+FROM node:alpine
+
+WORKDIR /app
+
+COPY ./package.json .
+
+RUN npm install
+
+COPY . .
+
+ENV PATH=$PATH:/app/node_modules/.bin
+
+CMD [ "nodemon", "src/app.js" ]
+```
+
+### the container
+
+- run a container based on the image created with the dockerfile
+- connect it to the same network as the database container
+- link a port of the container to the 80's port of the host machine
+- mount a bind mount in the container
+
+```sh
+docker run --network backendNet --mount type=bind,source="$(pwd)/src",t
+arget=/app/src -p80:80 --name node-server node-server
+```
