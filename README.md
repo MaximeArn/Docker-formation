@@ -1856,3 +1856,11 @@ docker compose up will start all the services listed in the services array of th
 ### docker compose run SERVICE
 
 this command allow us to star a service and to pass it a command
+
+## List containers
+
+we can either list the running containers using
+`docker container ls`
+or only the running containers started by docker-compose
+`docker-compose ps`
+we can also add the `-a` option to see the containers started using `docker-compose run`
