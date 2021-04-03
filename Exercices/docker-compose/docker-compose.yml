@@ -4,4 +4,8 @@ services:
     image: alpine
     command: ["ls"]
   myalpine:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - FOLDER=testFolder

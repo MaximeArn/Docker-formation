@@ -1904,3 +1904,32 @@ services:
       context: ./backend
       dockerfile: Dockefile
 ```
+
+### labels and args
+
+we can pass labels and args in a docker compose config file.
+
+with the following Dockerfile
+
+```docker
+FROM alpine
+ARG FOLDER
+RUN mkdir $FOLDER
+CMD ["/bin/sh"]
+```
+
+We will add an option called args that will contain declaration of arguments.
+
+```yml
+version: "3.8"
+services:
+  official_alpine:
+    image: alpine
+    command: ["ls"]
+  myalpine:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - FOLDER=testFolder
+```

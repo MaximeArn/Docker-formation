@@ -1,3 +1,7 @@
 FROM alpine
 
-CMD ["bin/sh", "ls"]
+ARG FOLDER
+
+RUN mkdir $FOLDER
+
+CMD ["/bin/sh"]
