@@ -1846,3 +1846,13 @@ Docker Compose is used as follows:
 - You run the `docker-compose up` command which will start all the services according to the options defined.
 
 Docker Compose only recreates containers whose configuration has changed, otherwise it reuses them. This can greatly speed up the shutdown and restart of your application, which is particularly useful in development.
+
+## Start container
+
+### docker-compose up
+
+docker compose up will start all the services listed in the services array of the `docker-compose.yml` file
+
+### docker compose run SERVICE
+
+this command allow us to star a service and to pass it a command

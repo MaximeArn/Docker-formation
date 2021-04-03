@@ -1,7 +1,8 @@
-key: value
-# this is the syntax for a key/value pair
-
-object:
-  prop1: value1
-  prop2: value2
-# this is the syntax for an object
+version: "3.8"
+services:
+  myalpine:
+    image: alpine
+    command: [pwd]
+  myalpine2:
+    image: alpine
+    command: [ls]
