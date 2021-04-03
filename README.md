@@ -1828,3 +1828,21 @@ It allows to completely remove the network management by Docker, it is as if the
 ### The `overlay` driver
 
 It actually allows you to deploy containers on several remote machines and have them communicate.
+
+# Docker Compose
+
+## What is docker compose
+
+Docker Compose facilitates the creation of multi-container applications.
+
+Docker Compose use config files that use the YAML language.
+
+Docker Compose is used as follows:
+
+- Your application has several Dockerfiles, one for each image you want to use.
+
+- Your app has a `docker-compose.yml` file which defines the services your app needs to run. A service is for example a database, a Rest API, a reverse proxy, a SPA application, etc.
+
+- You run the `docker-compose up` command which will start all the services according to the options defined.
+
+Docker Compose only recreates containers whose configuration has changed, otherwise it reuses them. This can greatly speed up the shutdown and restart of your application, which is particularly useful in development.
