@@ -1864,3 +1864,13 @@ we can either list the running containers using
 or only the running containers started by docker-compose
 `docker-compose ps`
 we can also add the `-a` option to see the containers started using `docker-compose run`
+
+## Stop container
+
+to stop all the containers launched by docker compose we use the following command:
+`docker-compose down`
+this command will stop each container and remove it. Moreover it will remove all networks created.
+
+To deletevolumes too we can add the `-v` option
+
+:warning: docker-compose never reuses anonymous volumes it always recreates new ones.
