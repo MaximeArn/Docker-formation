@@ -1874,3 +1874,33 @@ this command will stop each container and remove it. Moreover it will remove all
 To deletevolumes too we can add the `-v` option
 
 :warning: docker-compose never reuses anonymous volumes it always recreates new ones.
+
+## run custom images
+
+to run services based on custom images we must specify it in the `docker-compose.yml`
+
+the build option specify the path of thes Dockerfile. If this one is in the current folder we can just pass `build: .`
+
+```yml
+version: "3.8"
+services:
+  official_alpine:
+    image: alpine
+    command: ["ls"]
+  myalpine:
+    build: .
+```
+
+If the Dockerfile is not in the current folder we must use a more detailed version of the build option.
+
+```yml
+version: "3.8"
+services:
+  official_alpine:
+    image: alpine
+    command: ["ls"]
+  myalpine:
+    build:
+      context: ./backend
+      dockerfile: Dockefile
+```
