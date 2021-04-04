@@ -1933,3 +1933,5 @@ services:
       args:
         - FOLDER=testFolder
 ```
+
+now we can build the image with `docker-compose build` when the Dockerfile will be read docker-compose will pass as the value to the arg the one defined in the config file.
