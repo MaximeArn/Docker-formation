@@ -1935,3 +1935,25 @@ services:
 ```
 
 now we can build the image with `docker-compose build` when the Dockerfile will be read docker-compose will pass as the value to the arg the one defined in the config file.
+
+### publishing ports
+
+We can specify in the `docker-compose.yml` file which ports must be published for a service.
+For it we add a `ports` key in the service. The value of `ports` is a list of value of shape `HOST_PORT:CONTAINER:PORT`.
+
+```yml
+version: "3.8"
+services:
+  official_alpine:
+    image: alpine
+    command: ["ls"]
+  myalpine:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - FOLDER=testFolder
+    ports:
+      - 80:80
+      -3030:4040
+```
