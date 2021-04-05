@@ -1957,3 +1957,76 @@ services:
       - 80:80
       -3030:4040
 ```
+
+### Volumes
+
+We can create bind mounts anonymous or named volumes directly in the docker-compose config file.
+
+#### Bind Mounts
+
+For specifying volumes to mount in the container we will use a new key `volumes`. This key will take as value a list of object. Each object will describe a volume or a bind mount.
+
+```yml
+version: "3.8"
+services:
+  official_alpine:
+    image: alpine
+    command: ["ls"]
+  myalpine:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - FOLDER=testFolder
+    ports:
+      - 80:80
+      - 3030:4040
+    volumes:
+      - type: bind
+        source: ./dataToMount
+        target: /app/data
+```
+
+here we add an object in the list and we specify the type of the volume, the source of the folder (here for a bind mount) and the target.
+
+```sh
+docker-compose % docker-compose run myalpine
+Creating docker-compose_myalpine_run ... done
+/app # ls
+data        testFolder
+/app # cd data
+/app/data # ls
+data.json
+/app/data # cat data.json
+{
+  "users": [{ "name": "john" }, { "name": "jean" }, { "name": "Jeanne" }]
+}
+/app/data #
+```
+
+#### Anonymous volumes
+
+To create anonymous volumes we just need to set the type at `volume` and to only specify the target of the volume. By omiting the source docker-compose will automatically create an anonmous volume.
+
+```yml
+version: "3.8"
+services:
+  official_alpine:
+    image: alpine
+    command: ["ls"]
+  myalpine:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - FOLDER=testFolder
+    ports:
+      - 80:80
+      - 3030:4040
+    volumes:
+      - type: bind
+        source: ./dataToMount
+        target: /app/data
+      - type: volumes
+        target: /app/anonymousData
+```

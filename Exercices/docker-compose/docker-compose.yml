@@ -9,3 +9,12 @@ services:
       dockerfile: Dockerfile
       args:
         - FOLDER=testFolder
+    ports:
+      - 80:80
+      - 3030:4040
+    volumes:
+      - type: bind
+        source: ./dataToMount
+        target: /app/data
+      - type: volumes
+        target: /app/anonymousData
