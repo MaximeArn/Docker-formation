@@ -2098,5 +2098,45 @@ services:
         source: db
         target: /app/data/mydb
 volumes:
-  - db:
+  db:
+```
+
+#### Use only already existing volumes
+
+We can force docker-compose to use only volume that is already created. To do it we must specify the `external` option.
+
+```yml
+version: "3.8"
+services:
+  official_alpine:
+    image: alpine
+    command: ["ls"]
+  myalpine:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - FOLDER=testFolder
+    ports:
+      - 80:80
+      - 3030:4040
+    volumes:
+      - type: bind
+        source: ./dataToMount
+        target: /app/data
+      - type: volume
+        target: /app/anonymousData
+      - type: volume
+        source: db
+        target: /app/data/mydb
+volumes:
+  db:
+    external: true
+```
+
+If we try to run the container without creating the `db` volume before we have the following error:
+
+```sh
+ERROR: Volume db declared as external, but could not be found. Please create the volume manually using `do
+cker volume create --name=db` and try again.
 ```

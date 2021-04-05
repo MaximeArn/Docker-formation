@@ -16,10 +16,11 @@ services:
       - type: bind
         source: ./dataToMount
         target: /app/data
-      - type: volumes
+      - type: volume
         target: /app/anonymousData
       - type: volume
         source: db
         target: /app/data/mydb
 volumes:
-  - db:
+  db:
+    external: true
