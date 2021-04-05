@@ -18,3 +18,8 @@ services:
         target: /app/data
       - type: volumes
         target: /app/anonymousData
+      - type: volume
+        source: db
+        target: /app/data/mydb
+volumes:
+  - db:

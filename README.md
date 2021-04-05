@@ -2030,3 +2030,73 @@ services:
       - type: volumes
         target: /app/anonymousData
 ```
+
+### named volumes
+
+To declare named volumes we need to do two things :
+
+- Declare the volume
+- attibute this volume to a specific service
+
+#### Declare the volume
+
+We must add a key `volumes` at the same level as `services`
+volumes will take a list of object. each object will be a named volume. When we will run the services if the volumes are not findable docker-compose will create them.
+
+```yml
+version: "3.8"
+services:
+  official_alpine:
+    image: alpine
+    command: ["ls"]
+  myalpine:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - FOLDER=testFolder
+    ports:
+      - 80:80
+      - 3030:4040
+    volumes:
+      - type: bind
+        source: ./dataToMount
+        target: /app/data
+      - type: volumes
+        target: /app/anonymousData
+volumes:
+  - db:
+```
+
+#### Attribute the volume
+
+to attribute this volume we will add an object to the `volumes` field **of the service**
+For a named volume we must add the `source` field. This field has as value the name of the volume.
+
+```yml
+version: "3.8"
+services:
+  official_alpine:
+    image: alpine
+    command: ["ls"]
+  myalpine:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - FOLDER=testFolder
+    ports:
+      - 80:80
+      - 3030:4040
+    volumes:
+      - type: bind
+        source: ./dataToMount
+        target: /app/data
+      - type: volumes
+        target: /app/anonymousData
+      - type: volume
+        source: db
+        target: /app/data/mydb
+volumes:
+  - db:
+```
