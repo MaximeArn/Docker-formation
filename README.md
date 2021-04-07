@@ -2214,3 +2214,15 @@ we can also pass only a name and docker will search in the env of the host machi
 at last we can specify a config file
 
 `docker-compose -e ./aFile/anotherFile/againOne/.env`
+
+#### order of priority
+
+When we use env variables with docker compose it will use this order of priority :
+
+1 - The docker-compose.yml file.
+
+2 - The environment variables of your shell.
+
+3 - The defined environment variables file, for example .env.dev.
+
+4 - The Dockerfile (if you have defined values in ENV instructions).

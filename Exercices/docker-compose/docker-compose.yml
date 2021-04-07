@@ -1,13 +1,10 @@
 version: "3.8"
 services:
-  official_alpine:
-    image: alpine
-    command: ["ls"]
   myalpine:
     env_file:
       - ./.env
     environment:
-      - NAME=myalpine
+      - COMPOSE_PROJECT_NAME=myalpine
     build:
       context: .
       dockerfile: Dockerfile
