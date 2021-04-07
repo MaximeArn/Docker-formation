@@ -2200,3 +2200,17 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 PWD=/app
 /app #
 ```
+
+#### env variables and CLI
+
+the docker-compose CLI let us specify env variables with the `-e` option.
+
+`docker-compose -e NAME=myalpine`
+
+we can also pass only a name and docker will search in the env of the host machine (it is usefull to copy a variable)
+
+`docker-compose -e USER`
+
+at last we can specify a config file
+
+`docker-compose -e ./aFile/anotherFile/againOne/.env`
