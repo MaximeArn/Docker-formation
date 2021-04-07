@@ -2143,6 +2143,8 @@ cker volume create --name=db` and try again.
 
 ### ENV variables
 
+#### `environment` key
+
 the first way to define envoronment variables is to use the `environment` key in the `docker-compose.yml` file.
 
 ```yml
@@ -2160,6 +2162,38 @@ Creating docker-compose_myalpine_run ... done
 HOSTNAME=0a9b39c282d6
 SHLVL=1
 HOME=/root
+NAME=myalpine
+TERM=xterm
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+PWD=/app
+/app #
+```
+
+#### .env file
+
+By default docker-compose will search a .env file at the same level as `docker-compose.yml`
+
+```yml
+env_file:
+  - ./.env
+environment:
+  - NAME=myalpine
+```
+
+We can also combine the `env_file` and the `environment` keys
+
+```
+ENVIRONMENT=dev
+```
+
+```sh
+maxime@MacBook-Maxime docker-compose % docker-compose run myalpine
+Creating docker-compose_myalpine_run ... done
+/app # env
+HOSTNAME=38033651ba65
+SHLVL=1
+HOME=/root
+ENVIRONMENT=dev
 NAME=myalpine
 TERM=xterm
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin

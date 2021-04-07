@@ -4,6 +4,8 @@ services:
     image: alpine
     command: ["ls"]
   myalpine:
+    env_file:
+      - ./.env
     environment:
       - NAME=myalpine
     build:
