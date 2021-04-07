@@ -2140,3 +2140,29 @@ If we try to run the container without creating the `db` volume before we have t
 ERROR: Volume db declared as external, but could not be found. Please create the volume manually using `do
 cker volume create --name=db` and try again.
 ```
+
+### ENV variables
+
+the first way to define envoronment variables is to use the `environment` key in the `docker-compose.yml` file.
+
+```yml
+myalpine:
+  environment:
+    - NAME=myalpine
+```
+
+when I execute the container I canfind the new env variable.
+
+```sh
+maxime@MacBook-Maxime docker-compose % docker-compose run myalpine
+Creating docker-compose_myalpine_run ... done
+/app # env
+HOSTNAME=0a9b39c282d6
+SHLVL=1
+HOME=/root
+NAME=myalpine
+TERM=xterm
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+PWD=/app
+/app #
+```

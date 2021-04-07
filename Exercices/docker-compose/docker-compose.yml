@@ -4,6 +4,8 @@ services:
     image: alpine
     command: ["ls"]
   myalpine:
+    environment:
+      - NAME=myalpine
     build:
       context: .
       dockerfile: Dockerfile
