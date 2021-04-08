@@ -1,6 +1,10 @@
 version: "3.8"
 services:
+  officialAlpine:
+    image: alpine
+    command: ping google.fr
   myalpine:
+    command: ping Alpine
     env_file:
       - ./.env
     environment:
@@ -22,6 +26,8 @@ services:
       - type: volume
         source: db
         target: /app/data/mydb
+    links:
+      - "officialAlpine:Alpine"
 volumes:
   db:
     external: true

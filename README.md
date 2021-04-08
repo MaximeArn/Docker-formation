@@ -2284,7 +2284,7 @@ Attaching to docker-compose_myalpine_1
 docker-compose_myalpine_1 exited with code 0
 ```
 
-#### Change the na of the default network
+#### Change the name of the default network
 
 By default all the networks created by docker-compose will be prefixed by the name of the project.
 we can change it with the `name` key
@@ -2328,4 +2328,73 @@ Creating network "myAlpineNetwork" with the default driver
 Creating docker-compose_myalpine_1 ... done
 Attaching to docker-compose_myalpine_1
 docker-compose_myalpine_1 exited with code 0
+```
+
+#### Give alliases
+
+we can pass alisases to a container using the `links` key
+
+```yml
+version: "3.8"
+services:
+  officialAlpine:
+    image: alpine
+    command: ping google.fr
+  myalpine:
+    command: ping Alpine
+    env_file:
+      - ./.env
+    environment:
+      - COMPOSE_PROJECT_NAME=myalpine
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - FOLDER=testFolder
+    ports:
+      - 80:80
+      - 3030:4040
+    volumes:
+      - type: bind
+        source: ./dataToMount
+        target: /app/data
+      - type: volume
+        target: /app/anonymousData
+      - type: volume
+        source: db
+        target: /app/data/mydb
+    links:
+      - "officialAlpine:Alpine"
+volumes:
+  db:
+    external: true
+networks:
+  default:
+    name: myAlpineNetwork
+```
+
+Here we are saying to the container `myAlpine` that when I will use `Alpine` it will be a reference to the container `officialAlpine` then I can pass in `command` ping Alpine. It will ping officialAlpine.
+
+```sh
+maxime@MacBook-Maxime docker-compose % docker-compose up
+Recreating docker-compose_officialAlpine_1 ... done
+Recreating docker-compose_myalpine_1       ... done
+Attaching to docker-compose_officialAlpine_1, docker-compose_myalpine_1
+myalpine_1        | PING Alpine (172.29.0.2): 56 data bytes
+officialAlpine_1  | PING google.fr (216.58.198.195): 56 data bytes
+officialAlpine_1  | 64 bytes from 216.58.198.195: seq=0 ttl=37 time=51.217 ms
+myalpine_1        | 64 bytes from 172.29.0.2: seq=0 ttl=64 time=0.165 ms
+officialAlpine_1  | 64 bytes from 216.58.198.195: seq=1 ttl=37 time=90.944 ms
+myalpine_1        | 64 bytes from 172.29.0.2: seq=1 ttl=64 time=0.421 ms
+officialAlpine_1  | 64 bytes from 216.58.198.195: seq=2 ttl=37 time=45.791 ms
+myalpine_1        | 64 bytes from 172.29.0.2: seq=2 ttl=64 time=0.164 ms
+officialAlpine_1  | 64 bytes from 216.58.198.195: seq=3 ttl=37 time=51.099 ms
+myalpine_1        | 64 bytes from 172.29.0.2: seq=3 ttl=64 time=0.244 ms
+officialAlpine_1  | 64 bytes from 216.58.198.195: seq=4 ttl=37 time=52.201 ms
+myalpine_1        | 64 bytes from 172.29.0.2: seq=4 ttl=64 time=0.242 ms
+officialAlpine_1  | 64 bytes from 216.58.198.195: seq=5 ttl=37 time=46.401 ms
+myalpine_1        | 64 bytes from 172.29.0.2: seq=5 ttl=64 time=0.122 ms
+^CGracefully stopping... (press Ctrl+C again to force)
+Stopping docker-compose_myalpine_1         ... done
+Stopping docker-compose_officialAlpine_1   ... done
 ```
