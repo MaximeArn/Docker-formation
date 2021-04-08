@@ -2283,3 +2283,49 @@ Creating docker-compose_myalpine_1 ... done
 Attaching to docker-compose_myalpine_1
 docker-compose_myalpine_1 exited with code 0
 ```
+
+#### Change the na of the default network
+
+By default all the networks created by docker-compose will be prefixed by the name of the project.
+we can change it with the `name` key
+
+```yml
+version: "3.8"
+services:
+  myalpine:
+    env_file:
+      - ./.env
+    environment:
+      - COMPOSE_PROJECT_NAME=myalpine
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - FOLDER=testFolder
+    ports:
+      - 80:80
+      - 3030:4040
+    volumes:
+      - type: bind
+        source: ./dataToMount
+        target: /app/data
+      - type: volume
+        target: /app/anonymousData
+      - type: volume
+        source: db
+        target: /app/data/mydb
+volumes:
+  db:
+    external: true
+networks:
+  default:
+    name: myAlpineNetwork
+```
+
+```sh
+maxime@MacBook-Maxime docker-compose % docker-compose up
+Creating network "myAlpineNetwork" with the default driver
+Creating docker-compose_myalpine_1 ... done
+Attaching to docker-compose_myalpine_1
+docker-compose_myalpine_1 exited with code 0
+```
