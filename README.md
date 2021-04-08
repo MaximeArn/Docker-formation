@@ -2226,3 +2226,60 @@ When we use env variables with docker compose it will use this order of priority
 3 - The defined environment variables file, for example .env.dev.
 
 4 - The Dockerfile (if you have defined values in ENV instructions).
+
+### Networks and docker compose
+
+We have seen that Docker Compose creates a default bridge network and names it default_projectname.
+
+All the services defined in the docker-compose.yml join this network
+
+#### Create networks
+
+In addition to the default network, it is possible to define other networks. In this case, it is necessary to declare them at the most at the level as for the named volumes, then to use them in the services.
+
+**Exemple**
+
+```yml
+version: "3.8"
+services:
+  myalpine:
+    env_file:
+      - ./.env
+    environment:
+      - COMPOSE_PROJECT_NAME=myalpine
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - FOLDER=testFolder
+    ports:
+      - 80:80
+      - 3030:4040
+    volumes:
+      - type: bind
+        source: ./dataToMount
+        target: /app/data
+      - type: volume
+        target: /app/anonymousData
+      - type: volume
+        source: db
+        target: /app/data/mydb
+volumes:
+  db:
+    external: true
+networks:
+  backend:
+    name: backend
+    driver: bridge
+```
+
+Here I create a new network named backend and that use the bridge driver (useless because it is thedefault one)
+Then I assign the service `myalpine` to the network `backend`
+
+```sh
+maxime@MacBook-Maxime docker-compose % docker-compose up
+Creating network "backend" with driver "bridge"
+Creating docker-compose_myalpine_1 ... done
+Attaching to docker-compose_myalpine_1
+docker-compose_myalpine_1 exited with code 0
+```

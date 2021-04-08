@@ -22,6 +22,12 @@ services:
       - type: volume
         source: db
         target: /app/data/mydb
+    networks:
+      - backend
 volumes:
   db:
     external: true
+networks:
+  backend:
+    name: backend
+    driver: bridge
