@@ -1,0 +1,19 @@
+version: "3.8"
+services:
+  server:
+    build: .
+    ports:
+      - "80:80"
+    volumes:
+      - type: bind
+        source: ./src
+        target: /app/src
+  db:
+    image: mongo
+    volumes:
+      - type: volume
+        source: db
+        target: /data/db
+volumes:
+  db:
+    external: true
