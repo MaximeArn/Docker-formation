@@ -9,6 +9,9 @@ services:
         source: ./src
         target: /app/src
   db:
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD
     image: mongo
     volumes:
       - type: volume
