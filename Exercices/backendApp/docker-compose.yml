@@ -10,13 +10,13 @@ services:
         target: /app/src
   db:
     environment:
-      - MONGO_INITDB_ROOT_USERNAME
-      - MONGO_INITDB_ROOT_PASSWORD
+      - MONGO_INITDB_ROOT_USERNAME=maxime
+      - MONGO_INITDB_ROOT_PASSWORD=password
     image: mongo
     volumes:
       - type: volume
         source: db
-        target: /data/db
+        target: /data/db/
 volumes:
   db:
     external: true
