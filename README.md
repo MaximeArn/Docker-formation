@@ -2438,3 +2438,27 @@ volumes:
 ```
 
 here the `server` depends on the `db` service. Docker-compose will start the db and then start the server.
+
+### Restart
+
+By default, containers are not restarted if they are stopped: whether because of an error, manually or if the dockerd daemon is stopped
+
+It is possible to change this behavior by specifying for each service, what is the restart policy for it. To do this, you must use the `restart` configuration key.
+
+**This key takes these values :**
+
+- `none`: the default one. Containers are not restarted, even in the event of an error.
+
+- `on-failure`: allows you to restart the container in the event of an error.
+
+- `always`: restart the container all the time. If it is stopped manually (docker container stop), it is only restarted if the dockerd daemon is restarted.
+
+- `unless-stopped`: restart the container all the time. If it is stopped manually (docker container stop), it is never restarted.
+
+#### CLI Option
+
+we can also change the restart policy of a running container using the `--restart VALUE` option
+
+```sh
+docker container update --restart unless-stopped ID
+```
