@@ -2398,3 +2398,43 @@ myalpine_1        | 64 bytes from 172.29.0.2: seq=5 ttl=64 time=0.122 ms
 Stopping docker-compose_myalpine_1         ... done
 Stopping docker-compose_officialAlpine_1   ... done
 ```
+
+### depends_on
+
+The depend_on configuration allows you to define that a service depends on other services.
+
+This involves the following behaviors:
+
+docker-compose up will start the services which are dependencies of other services before.
+
+docker-compose up SERVICE will automatically include starting all dependencies of the service.
+
+docker-compose down will first stop dependencies before other services.
+
+#### Example :
+
+```yml
+version: "3.8"
+services:
+  server:
+    build: .
+    ports:
+      - "80:80"
+    volumes:
+      - type: bind
+        source: ./src
+        target: /app/src
+    depends_on:
+      - db
+  db:
+    image: mongo
+    volumes:
+      - type: volume
+        source: db
+        target: /data/db/
+volumes:
+  db:
+    external: true
+```
+
+here the `server` depends on the `db` service. Docker-compose will start the db and then start the server.

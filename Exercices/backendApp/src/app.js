@@ -12,7 +12,6 @@ MongoClient.connect("mongodb://db", { useUnifiedTopology: true }, (err, client) 
 });
 
 app.get("/", (req, res) => {
-  console.log("count : ", count);
   count
     .findOneAndUpdate({}, { $inc: { count: 1 } }, { returnNewDocument: true })
     .then((doc) => {
