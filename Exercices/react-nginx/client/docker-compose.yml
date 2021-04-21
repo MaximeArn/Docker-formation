@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  react:
+    build: .
+    ports:
+      - 3000:3000
+    volumes:
+      - type: bind
+        source: ../client
+        target: /app
+      - type: volume
+        target: /app/node_modules
+networks:
+  default:
+    name: react-nginx-network
