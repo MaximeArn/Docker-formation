@@ -21,3 +21,13 @@ npm notice Changelog: <https://github.com/npm/cli/releases/tag/v7.10.0>
 npm notice Run `npm install -g npm@7.10.0` to update!
 npm notice
 ```
+
+### Fix
+
+To fix this problem we will create a anonymous volume that will only contain the node_modules.
+
+```sh
+docker run --name react --rm -p 3000:3000 --mount type=bind,source="$(pwd)",target=/app --mount type=volume,target=/app/node_modules react-app
+```
+
+we also add the `--rm` option that remove the container and the anonymous volume as soon as the container is stoped.
