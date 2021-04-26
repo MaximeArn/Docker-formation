@@ -28,6 +28,16 @@ services:
       - type: volume
         source: dbtest
         target: /data/db
+  reverse-proxy:
+    build:
+      context: ./reverse-proxy
+      dockerfile: Dockerfile.dev
+    ports:
+      - "80:80"
+    depends_on:
+      - client
+      - api
+      - db
 volumes:
   dbtest:
     external: true
